@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/groupify.css') }}">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Groupify</title>
+    <script type="text/javascript" src="static/javascript/dashboard.js"></script>
+    </script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Adaptive Framework for Learning</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="app">
+        <div class="col-sm-9 col-md-10 main">
+          <h1 class="page-header">Groupify - {{ strategy }}</h1>
+          {% for key, value in result.iteritems() %}
+          <div class="col-md-4">
+            <div class="character-card" style="border:2px solid #4FC08D;border-radius: 4px;">
+              <h4 class="group-num">Group {{ key }}</h4>
+              <p class="group-text">{{ value[0] }}</p>
+              <p class="group-text">{{ value[1] }}</p>
+              <p class="group-text">{{ value[2] }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
+
+<!-- <html>
+  <head>
+  <title>Hello World!</title>
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/index.css') }}">
+  </head>
+  <body id="app">
+
+  </body>
+</html> -->

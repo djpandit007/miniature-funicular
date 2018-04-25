@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/progress.css') }}">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Adaptive Framework for Learning</title>
+    </script>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Adaptive Framework for Learning</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="col-sm-9 col-md-10 main">
+        <h1 class="page-header">Performance of {{ student }}</h1>
+      </div>
+    </div>
+    <div id="MainMenu">
+      <div class="flex-row">
+        <div class="col-md-6 main">
+          <img src="/static/images/weights_histogram.png" alt="Could not find image! :()">
+        </div>
+        <div class="col-md-6 vcenter main">
+          <p style="padding-top:20% !important">
+            {% for element in weights %}
+              Topic {{loop.index}} has final weight of {{ element }} <br>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

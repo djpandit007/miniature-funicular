@@ -1,0 +1,12 @@
+learnAfter(t4,t1).
+learnAfter(t4,t2).
+learnAfter(t5,t3).
+learnAfter(t5,t4).
+learnAfter(t6,t4).
+learnAfter(t7,t4).
+learnAfter(t7,t5).
+learnAfter(t8,t6).
+learnAfter(t8,t7).
+learnAfter(t9,t8).
+learnAfter(t10,t7).
+learnAfter(t10,t9).

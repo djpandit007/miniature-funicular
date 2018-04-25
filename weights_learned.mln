@@ -1,0 +1,36 @@
+//predicate declarations
+Outcome(attempt,topped_topic!)
+
+// -0.64576  Outcome(a,C@topped_topic@1)
+-0.64576  Outcome(a1,1)
+
+// 0.443264  Outcome(a,C@topped_topic@2)
+0.443264  Outcome(a1,2)
+
+// 0.019793  Outcome(a,C@topped_topic@3)
+0.019793  Outcome(a1,3)
+
+// 0.172442  Outcome(a,C@topped_topic@4)
+0.172442  Outcome(a1,4)
+
+// 0.43959  Outcome(a,C@topped_topic@5)
+0.43959  Outcome(a1,5)
+
+// -0.651506  Outcome(a,C@topped_topic@6)
+-0.651506  Outcome(a1,6)
+
+// 0.000450355  Outcome(a,C@topped_topic@7)
+0.000450355  Outcome(a1,7)
+
+// 0.000572096  Outcome(a,C@topped_topic@8)
+0.000572096  Outcome(a1,8)
+
+// 0.000635026  Outcome(a,C@topped_topic@9)
+0.000635026  Outcome(a1,9)
+
+// -0.213122  Outcome(a,C@topped_topic@10)
+-0.213122  Outcome(a1,10)
+
+// 0       Outcome(a1,a2!)
+0       Outcome(a1,a2)
+

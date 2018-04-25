@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/dashboard.css') }}">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Adaptive Framework for Learning</title>
+    <script type="text/javascript" src="static/javascript/dashboard.js"></script>
+    </script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Adaptive Framework for Learning</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <h4 style="padding-left: 10px;">Learner Roster</h4>
+            {% for value in result %}
+            <li><p>{{ value[0] }}. {{ value[1] }}</p></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders" style="padding-top: 70px">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="http://doview.com/_Media/groups_med.jpeg" width="300" height="200" class="img-responsive" alt="Grouping learners">
+              <h4><button type="button" name="groupify-button" id="groupify-button" onclick="groupifyOnClick()">Groupify</button></h4>
+              <span class="text-muted">Form groups according to skills</span>
+              <p><div class="groupify-by-div" id="groupify-by-div"></div></p>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="https://www.geeksforgeeks.org/wp-content/uploads/graph.png" width="250" height="200" class="img-responsive" alt="Finding path..." style="padding-top: 20px;">
+              <h4><button type="button" id="path-finder-button" onclick="pathFindOnClick()">Path Finder</button></h4>
+              <span class="text-muted">See a learner's path to course completion</span>
+              <p><div class="path-finder-div" id="path-finder-div"></div></p>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="https://previews.123rf.com/images/ribah/ribah1307/ribah130700639/21082864-3d-illustration-of-person-walking-on-growing-progress-bars-to-achieve-goal-and-target.jpg" width="250" height="200" class="img-responsive" alt="Track progress" style="padding-top: 50px;">
+              <h4><button type="button" id="progress-button" onclick="feedbackOnClick()">Progress</button></h4>
+              <span class="text-muted">See individual learner's progress over time</span>
+              <p><div class="progress-div" id="progress-div"></div></p>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="https://www.sandypines.com/wp-content/uploads/Maintenance-Icon.png" width="250" height="200" class="img-responsive" alt="Admin">
+              <h4><button type="button" id="admin-button" onclick="adminOnClick()">Administrative</button></h4>
+              <span class="text-muted">Change attributes and see the effects</span>
+              <p><div class="admin-div" id="admin-div"></div></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,21 @@
+:- sorts
+topic.
+
+:- objects
+t1, t2, t3, t4, t5, t6, t7, t8, t9, t10 :: topic.
+
+:- variables
+T, T1 :: topic.
+
+:- constants
+knows(topic) :: inertialFluent;
+learnAfter(topic, topic) :: sdFluent;
+study(topic) :: exogenousAction.
+
+study(T) causes knows(T).
+
+default ~learnAfter(T, T1).
+
+nonexecutable study(T) if knows(T).
+nonexecutable study(T) & study(T1) & T \= T1.
+nonexecutable study(T) if learnAfter(T, T1) & ~knows(T1).

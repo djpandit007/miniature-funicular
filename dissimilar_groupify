@@ -1,0 +1,30 @@
+% File 'dissimilar_groupify'
+
+% Every group should have exactly 3 students
+3 { a(GroupNum, Id, Score) : studentScore(Id, Score) } 3 :- group(GroupNum).
+
+% Every student should be in exactly one group
+1 { a(GroupNum, Id, Score) : group(GroupNum) } 1 :- studentScore(Id, Score).
+
+% Avoid closely matched students
+:- a(GroupNum, Id1, Score1), a(GroupNum, Id2, Score2), Id1!=Id2, |Score1-Score2|<3.
+
+#show a/3.
+
+
+
+% File 'dissimilar_groupify'
+
+% Every number should be in exactly one group
+%1 { a(GroupNum, Id, Score) : group(GroupNum) } 1 :- studentScore(Id, Score).
+
+% Every group should have a minimum of 3 and a maximum of 4 numbers
+%3 { a(GroupNum, Id, Score) : studentScore(Id, Score) } 3 :- group(GroupNum).
+
+% Avoid closely matched students
+%:- a(GroupNum, Id1, Score1), a(GroupNum, Id2, Score2), Score1!=Score2, |Score1-Score2|<=3.
+%:- a(GroupNum, Id1, Score1), a(GroupNum, Id2, Score2), Id1==Id2, Score1!=Score2, |Score1-Score2|<=3.
+%:- a(GroupNum, Id1, Score1), a(GroupNum, Id2, Score2), Score1!=Score2, |Score1-Score2|<3.
+%:- a(GroupNum, Id1, Score), a(GroupNum, Id2, Score), Id1!=Id2.
+
+%#show a/3.

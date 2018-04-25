@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='stylesheets/admin.css') }}">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Adaptive Framework for Learning</title>
+    </script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Adaptive Framework for Learning</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-md-10 main">
+          <h1 class="page-header">Admin Section for {{ student }}</h1>
+          <div class="container">
+            <h2>Edit Initial Topics:</h2>
+            <form class="form-horizontal" action="/" method="post">
+              <div class="form-group">
+                {% for i in range(1, 11) %}
+                  {% if i in expertise %}
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="t{{ i }}" checked>Topic {{ i }}</label>
+                    </div>
+                  {% else %}
+                  <div class="checkbox">
+                    <label><input type="checkbox" name="t{{ i }}">Topic {{ i }}</label>
+                  </div>
+                  {% endif %}
+                {% endfor %}
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" name={{ studentID }} class="btn btn-default">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

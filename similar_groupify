@@ -1,0 +1,12 @@
+% File 'similar_groupify'
+
+% Every number should be in exactly one group
+1 { a(GroupNum, Id, Score) : group(GroupNum) } 1 :- studentScore(Id, Score).
+
+% Every group should have exactly 3 students
+3 { a(GroupNum, Id, Score) : studentScore(Id, Score) } 3 :- group(GroupNum).
+
+% Marks difference cannot be more than 5
+:- a(GroupNum, Id1, Score1), a(GroupNum, Id2, Score2), |Score1-Score2|>5.
+
+#show a/3.

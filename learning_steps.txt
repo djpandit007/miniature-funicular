@@ -1,0 +1,103 @@
+% Pragma: Running Query '0'.
+% Pragma: Minimum Step = '1', Maximum Step = '20'.
+% Pragma: Searching for 3 solutions.
+clingo version 4.5.4
+Solving...
+Solving...
+Solving...
+Solving...
+Solving...
+Solving...
+Solving...
+Solution: 1
+	
+
+	0:  knows(t1) knows(t2) knows(t3) knows(t4) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t6)
+
+	1:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t6) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t5)
+
+	2:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t7)
+
+	3:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t8)
+
+	4:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t9)
+
+	5:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) knows(t9) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t10)
+
+	6:  knows(t1) knows(t10) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) knows(t9) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+Solution: 2
+	
+
+	0:  knows(t1) knows(t2) knows(t3) knows(t4) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t5)
+
+	1:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t6)
+
+	2:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t7)
+
+	3:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t8)
+
+	4:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t9)
+
+	5:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) knows(t9) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t10)
+
+	6:  knows(t1) knows(t10) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) knows(t9) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+Solution: 3
+	
+
+	0:  knows(t1) knows(t2) knows(t3) knows(t4) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t5)
+
+	1:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t7)
+
+	2:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t7) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t6)
+
+	3:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t8)
+
+	4:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t9)
+
+	5:  knows(t1) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) knows(t9) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+	ACTIONS:  study(t10)
+
+	6:  knows(t1) knows(t10) knows(t2) knows(t3) knows(t4) knows(t5) knows(t6) knows(t7) knows(t8) knows(t9) learnAfter(t10, t7) learnAfter(t10, t9) learnAfter(t4, t1) learnAfter(t4, t2) learnAfter(t5, t3) learnAfter(t5, t4) learnAfter(t6, t4) learnAfter(t7, t4) learnAfter(t7, t5) learnAfter(t8, t6) learnAfter(t8, t7) learnAfter(t9, t8)
+
+SATISFIABLE
+Models       : 3+    
+Calls        : 7
+Time         : 0.114s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.100s

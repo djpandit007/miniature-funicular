@@ -1,0 +1,10 @@
+// progress.mln
+
+attempt = {1,...,30}
+topped_topic = {1,...,10}
+
+// Each attempt has one topped_topic ONLY because we are use exclamation(!)
+Outcome(attempt, topped_topic!)
+
+// Learn weight for each topped_topic
+Outcome(a, +t)

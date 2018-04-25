@@ -1,0 +1,28 @@
+studentScore(1, 86).
+studentScore(2, 95).
+studentScore(3, 94).
+studentScore(4, 99).
+studentScore(5, 88).
+studentScore(6, 87).
+studentScore(7, 93).
+studentScore(8, 82).
+studentScore(9, 100).
+studentScore(10, 80).
+studentScore(11, 80).
+studentScore(12, 81).
+studentScore(13, 83).
+studentScore(14, 81).
+studentScore(15, 82).
+studentScore(16, 84).
+studentScore(17, 85).
+studentScore(18, 86).
+studentScore(19, 87).
+studentScore(20, 88).
+studentScore(21, 89).
+group(1).
+group(2).
+group(3).
+group(4).
+group(5).
+group(6).
+group(7).

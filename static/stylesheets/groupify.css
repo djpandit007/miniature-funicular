@@ -1,0 +1,25 @@
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: white;
+  margin: auto;
+}
+
+.character-card {
+  border: 2px solid #4FC08D;
+  border-radius: 4px;
+}
+
+.page-header {
+  padding-top: 50px;
+}
+
+.group-num {
+  text-align: center;
+}
+
+.group-text {
+  text-align: center;
+}
