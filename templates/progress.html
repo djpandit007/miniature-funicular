@@ -36,8 +36,9 @@
         </div>
         <div class="col-md-6 vcenter main">
           <p style="padding-top:20% !important">
+            <p style="fontsize:20;font-weight: bold;">Topics Mastery:</p>
             {% for element in weights %}
-              Topic {{loop.index}} has final weight of {{ element }} <br>
+              <br> Topic {{ element[0] }} has mastery value of {{ element[1] }}
             {% endfor %}
           </p>
         </div>

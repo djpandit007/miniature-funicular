@@ -99,5 +99,5 @@ Solution: 3
 SATISFIABLE
 Models       : 3+    
 Calls        : 7
-Time         : 0.114s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
-CPU Time     : 0.100s
+Time         : 0.222s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.180s

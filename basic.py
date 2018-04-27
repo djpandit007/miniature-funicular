@@ -3,6 +3,9 @@ from subprocess import call
 import sqlite3
 import json
 
+from matplotlib.pyplot import pause
+import pylab
+import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -36,7 +39,6 @@ def writeActionInputData(inputFile):
 
 def writeQueryData(expertise):
     expertise = expertise.split(",")
-    print "Learner Expertise: ", expertise
     with open("query", "w") as a_file:
         a_file.write(":- query\n")
         a_file.write("maxstep :: 1..20;\n")
@@ -57,17 +59,17 @@ def landing():
 
     if request.method == "POST":
         params = request.form
+        score = request.form.get("score")
         paramString = ""
         for p in params:
             if "t" in p:
                 paramString += p + ","
-            else:
-                identifier = p
+            elif "i" in p:
+                identifier = p[1:]
         paramString = paramString[:-1]
-
         with conn:
             cursor = conn.cursor()
-            cursor.execute("UPDATE LEARNERS SET EXPERTISE=\"%s\" WHERE ID=%s" % (paramString, identifier))
+            cursor.execute("UPDATE LEARNERS SET EXPERTISE=\"%s\", SCORE=%s WHERE ID=%s" % (paramString, score, identifier))
 
     cursor = conn.execute("SELECT id, name from LEARNERS")
     return render_template("dashboard.html", result=cursor)
@@ -125,13 +127,27 @@ def progress():
     name = conn.execute("SELECT NAME FROM LEARNERS WHERE ID=%s" % (studentID)).fetchone()
 
     call(["/home/djpandit/Downloads/alchemy/bin/learnwts", "-i", "progress.mln", "-o", "weights_learned.mln", "-t", "attempts.db", "-ne", "Outcome", "-dMaxSec", "10"])
+    with open("initial_weights.mln", "r") as f:
+        initContent = f.readlines()
     with open("weights_learned.mln", "r") as f:
         content = f.readlines()
-    content = content[3:-4]
+    initContent, content = initContent[3:-2], content[3:-4]
+    initContent = filter(lambda x: "//" not in x and x != "\n", initContent)
     content = filter(lambda x: "//" not in x and x != "\n", content)
+    initWts = map(lambda x: float(x.split(" ")[0]), initContent)
     weights = map(lambda x: float(x.split(" ")[0]), content)
-    saveHistogram(weights)
-    return render_template("progress.html", student=name[0], weights=weights)
+    minInitWts, maxInitWts = min(initWts), max(initWts)
+    minWts, maxWts = min(weights), max(weights)
+    stepInitWts = (maxInitWts - minInitWts) / 5
+    stepWts = (maxWts - minWts) / 5
+    initWts = map(lambda x: int(round((x - minInitWts) / stepInitWts)), initWts)
+    weights = map(lambda x: int(round((x - minWts) / stepWts)), weights)
+    saveHistogram(initWts, weights)
+    topicWeightPair = []
+    for num in range(len(weights)):
+        topicWeightPair.append((num + 1, weights[num]))
+    topicWeightPair.sort(key=lambda x: -x[1])
+    return render_template("progress.html", student=name[0], weights=topicWeightPair)
 
 @app.route("/find-path", methods=["POST"])
 def find_path():
@@ -140,9 +156,8 @@ def find_path():
     graphEdges = writeActionInputData("dependencies.txt")
 
     studentID = request.form.get("path-student")
-    expertise = conn.execute("SELECT EXPERTISE FROM LEARNERS WHERE ID=%s" % (studentID)).fetchone()
-    name = conn.execute("SELECT NAME FROM LEARNERS WHERE ID=%s" % (studentID)).fetchone()
-    writeQueryData(expertise[0])
+    name, expertise = conn.execute("SELECT NAME, EXPERTISE FROM LEARNERS WHERE ID=%s" % (studentID)).fetchone()
+    writeQueryData(expertise)
 
     outputFile = open("learning_steps.txt", "w")
     call(["cplus2asp", "adaptiveSystem", "topicDependency", "query", "--query=0", "3"], stdout=outputFile)
@@ -164,36 +179,41 @@ def find_path():
         else:
             allSolutions[solNum].append(action)
 
-    saveFigure(graphEdges, expertise[0], allSolutions[0], "plan1")
-    saveFigure(graphEdges, expertise[0], allSolutions[1], "plan2")
-    saveFigure(graphEdges, expertise[0], allSolutions[2], "plan3")
+    saveFigure(graphEdges, expertise, allSolutions[0], "plan1")
+    saveFigure(graphEdges, expertise, allSolutions[1], "plan2")
+    saveFigure(graphEdges, expertise, allSolutions[2], "plan3")
     plan1 = ", ".join(allSolutions[0])
     plan2 = ", ".join(allSolutions[1])
     plan3 = ", ".join(allSolutions[2])
-    return render_template("findPath.html", plan1=plan1, plan2=plan2, plan3=plan3, student=name[0])
+
+    # animate(graphEdges, expertise, allSolutions)
+
+    return render_template("findPath.html", plan1=plan1, plan2=plan2, plan3=plan3, student=name)
 
 @app.route("/admin", methods=["POST"])
 def admin():
     conn = sqlite3.connect("project.db")
     studentID = request.form.get("admin")
-    name = conn.execute("SELECT NAME FROM LEARNERS WHERE ID=%s" % (studentID)).fetchone()
-    expertise = conn.execute("SELECT EXPERTISE FROM LEARNERS WHERE ID=%s" % (studentID)).fetchone()
-    expertise = expertise[0]
+    name, expertise, score = conn.execute("SELECT NAME, EXPERTISE, SCORE FROM LEARNERS WHERE ID=%s" % (studentID)).fetchone()
     expertise = expertise.split(",")
     expertise = map(lambda x: int(x.replace("t", "")), expertise)
-    print "Name of student: ", studentID, name, expertise
-    return render_template("admin.html", student=name[0], expertise=expertise, studentID=studentID)
+    return render_template("admin.html", student=name, expertise=expertise, studentID=studentID, score=score)
 
-def saveHistogram(dataPoints):
+def saveHistogram(initial, dataPoints):
     plt.clf()
-    plt.plot(range(1, len(dataPoints) + 1), dataPoints, marker='o', color='g')
-    plt.plot(range(1, len(dataPoints) + 1), [0] * len(dataPoints), color='black', linewidth=2.0)
-    plt.title('Current Performance', loc='center')
-    plt.xlabel('Topic Number')
-    plt.ylabel('Weights')
-    plt.grid()
+    fig, ax = plt.subplots()
+    ind = np.arange(1, 11)
+    width = 0.35
 
+    rects1 = ax.bar(ind, initial, width, color='y', label="Starting Knowledge")
+    rects2 = ax.bar(ind + width, dataPoints, width, color='g', label="Current Knowledge")
+    ax.set_title('Current Performance', loc='center')
+    ax.set_xlabel('Topic Number')
+    ax.set_ylabel('Topic Mastery')
+    ax.legend(loc='best', shadow=True)
+    ax.grid()
     plt.savefig("./static/images/weights_histogram.png", format="PNG")
+    plt.close("all")
 
 def saveFigure(Edges, initKnowledge, actions, outputFile):
     plt.clf()
@@ -201,7 +221,6 @@ def saveFigure(Edges, initKnowledge, actions, outputFile):
     initKnowledge = initKnowledge.split(",")
 
     initConfig.add_edges_from(Edges)
-    # pos = nx.spring_layout(initConfig, k=10.0)
     pos = nx.shell_layout(initConfig)
     black_edges = [edge for edge in Edges]
 
@@ -209,7 +228,8 @@ def saveFigure(Edges, initKnowledge, actions, outputFile):
     nx.draw_networkx_labels(initConfig, pos)
     nx.draw_networkx_nodes(initConfig, pos, nodelist=initKnowledge, node_color='#00FF00')
     nx.draw_networkx_edges(initConfig, pos, edgelist=black_edges, edge_color='black', arrows=True)
-    plt.suptitle("Initial Knowledge: " + ", ".join(initKnowledge))
+    plt.suptitle("Initial Knowledge")
+    plt.figtext(0.25, 0.05, "Topics Known: " + ", ".join(initKnowledge), fontsize=12)
 
     plt.axis("off")
     plt.savefig("./static/images/" + outputFile + "-1.png", format="PNG")
@@ -230,7 +250,6 @@ def saveFigure(Edges, initKnowledge, actions, outputFile):
         edgeLabels[learnOrder[order]] = str(order + 1)
 
     finalKnowledge = ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10']
-    # pos = nx.spring_layout(finalConfig, k=10.0)
     black_edges = [edge for edge in Edges if edge not in learnOrder]
     nx.draw_networkx_nodes(finalConfig, pos, node_color='#C0C0C0')
     nx.draw_networkx_labels(finalConfig, pos)
@@ -242,56 +261,23 @@ def saveFigure(Edges, initKnowledge, actions, outputFile):
     plt.figtext(0.25, 0.05, "Learning Order: " + ", ".join(actions), fontsize=12)
     plt.axis("off")
     plt.savefig("./static/images/" + outputFile + "-2.png", format="PNG")
-    # animate()
+    plt.close("all")
 
-def animate():
-    import networkx as nx
-    import numpy as np
-    import matplotlib.pyplot as plt
-    from matplotlib.pyplot import pause
-    import pylab
+def animate(Edges, initKnowledge, actions):
     pylab.ion()
     plt.clf()
 
+    initKnowledge = initKnowledge.split(",")
     Graph = nx.DiGraph()
-    labels = {'t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10'}
-    initPosition = {
-    't1': [ 0.62595554,  0.21395259],
-    't2': [ 1.0,  0.59112415],
-    't3': [ 0.0547307,  0.53207903 ],
-    't4': [ 0.57086641,  0.53207903],
-    't5': [ 0.34546013,  0.30230591],
-    't6': [ 0.0547307 ,  0.75364438],
-    't7': [ 0.57086641,  0.99915934],
-    't8': [ 0.87557846,  0.84131369],
-    't9': [ 0.30929179,  0.97162183],
-    't10': [ 0.8467943 ,  0.21395259]
-    }
-
-    Edges = [
-    ('t1', 't4'),
-    ('t2', 't4'),
-    ('t3', 't5'),
-    ('t4', 't5'),
-    ('t4', 't6'),
-    ('t4', 't7'),
-    ('t5', 't7'),
-    ('t6', 't8'),
-    ('t7', 't8'),
-    ('t8', 't9'),
-    ('t7', 't10'),
-    ('t9', 't10')
-    ]
 
     red_edges = [('t1', 't4'), ('t3', 't5'), ('t4', 't6'), ('t4', 't7'), ('t6', 't8'), ('t8', 't9'), ('t7', 't10')]
     black_edges = [('t2', 't4'), ('t4', 't5'), ('t5', 't7'), ('t7', 't8'), ('t9', 't10')]
 
     Graph.add_edges_from(Edges)
-    currentNode = ['t1', 't2', 't3']
-    pos = nx.spring_layout(Graph, pos = initPosition, fixed = labels)
-    black_nodes = [edge[1] for edge in Graph.edges() if edge[1] not in currentNode]
+    pos = nx.shell_layout(Graph)
+    black_nodes = [edge[1] for edge in Graph.edges() if edge[1] not in initKnowledge]
     nx.draw_networkx_nodes(Graph,pos, node_color='#C0C0C0')
-    nx.draw_networkx_nodes(Graph,pos, nodelist=currentNode, node_color='#00FF00')
+    nx.draw_networkx_nodes(Graph,pos, nodelist=initKnowledge, node_color='#00FF00')
     nx.draw_networkx_labels(Graph,pos)
     nx.draw_networkx_edges(Graph, pos, edgelist=black_edges,edge_color='black', arrows=True)
     plt.axis("off")
@@ -299,19 +285,17 @@ def animate():
 
     currentList = []
     def get_fig(i):
-        print "Edge: ", red_edges[i]
         currentList.append(red_edges[i])
-        currentNode.append(red_edges[i][1])
-        pos = nx.spring_layout(Graph, pos = initPosition, fixed = labels)
+        initKnowledge.append(red_edges[i][1])
+        pos = nx.shell_layout(Graph)
         black_edges = [edge for edge in Graph.edges() if edge != red_edges[i]]
-        black_nodes = [label for label in labels if label not in currentNode]
+        black_nodes = [edge[1] for edge in Graph.edges() if edge[1] not in initKnowledge]
         nx.draw_networkx_labels(Graph,pos)
-        nx.draw_networkx_nodes(Graph,pos, nodelist=currentNode, node_color='#7CFC00')
+        nx.draw_networkx_nodes(Graph,pos, nodelist=initKnowledge, node_color='#7CFC00')
         nx.draw_networkx_nodes(Graph,pos, nodelist=black_nodes, node_color='#FF8C00')
         nx.draw_networkx_edges(Graph, pos, edgelist=currentList, edge_color='#FFDF00', arrows=True)
         nx.draw_networkx_edges(Graph, pos, edgelist=black_edges,edge_color='black', arrows=True)
-        plt.text(0.05, 0.05, "Learning Order: " + ", ".join(currentNode), fontsize=12)
-
+        plt.figtext(0.25, 0.05, "Learning Order: " + ", ".join(initKnowledge), fontsize=12)
         pylab.show()
 
     for i in range(len(red_edges)):
